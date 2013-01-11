@@ -1,24 +1,13 @@
-node-minifier
+aida
 =====
 
-What is node-minifier used for
+What is aida used for
 -------
-a minifier tools for js/css/html/image
+a build tool for front-end
 
 Usage
 -------
 
 ```
-npm install node-minifier
+npm install aida -g
 
-
-```javascript
-var minifier = require('node-minifier');
-
-var minifiedJS = minifier.minifyJS(jscontent);
-
-var minifiedCSS = minifier.minifyCSS(csscontent);
-
-var minifiedHTML = minifier.minifyHTML(htmlcontent);
-
-var datauriCSS = minifier.datauri(csscontent);
