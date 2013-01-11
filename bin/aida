@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+var util = require('util');
+var path = require('path');
+var argv = require('optimist').argv;
+var fileutil = require('fileutil');
+
+var aida = require('../lib/aida');
+var Reporter = require('../lib/Reporter');
+
+if(argv.v || argv.version){
+  var content = fileutil.read(path.join(__dirname, '../package.json'));
+  return util.puts(JSON.parse(content).version);
+}else if(argv.h || argv.help){ 
+  var str = [
+  ].join('\n');
+  return util.puts(str);
+}
+
+var target = argv._[0] || argv.t || argv.target;
+var file = argv._[1] || argv.f || argv.file;
+
+var encoding = argv.e || argv.encoding;
+var defaultFile = 'build.xml';
+
+if(!file){
+  file = defaultFile;
+}else if(fileutil.isDirectory(file)){
+  file =  file + path.sep + defaultFile;
+}
+
+if(!fileutil.isFile(file)){
+  return util.puts('Build failed: ' + file + ' does not exist!');
+}
+var project = aida.createProject(file, encoding);
+var reporter = new Reporter(project);
+project.execute(target);
