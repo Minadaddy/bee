@@ -1,6 +1,6 @@
 {
     "name": "aida",
-    "version": "0.0.1",
+    "version": "0.0.2",
 	"description": "xml build tool write in Node",
     "keywords": ["xml build tool", "front-end build tool", "aida"],
     "main": "lib/aida.js",

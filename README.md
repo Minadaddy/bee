@@ -10,4 +10,3 @@ Usage
 
 ```
 npm install aida -g
-
