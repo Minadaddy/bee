@@ -4,7 +4,7 @@ var path = require('path');
 var argv = require('optimist').argv;
 var fileutil = require('fileutil');
 
-var aida = require('../lib/aida');
+var bee = require('../lib/bee');
 var Reporter = require('../lib/Reporter');
 
 if(argv.v || argv.version){
@@ -31,6 +31,6 @@ if(!file){
 if(!fileutil.isFile(file)){
   return util.puts('Build failed: ' + file + ' does not exist!');
 }
-var project = aida.createProject(file, encoding);
+var project = bee.createProject(file, encoding);
 var reporter = new Reporter(project);
 project.execute(target);

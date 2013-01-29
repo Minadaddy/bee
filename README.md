@@ -1,7 +1,7 @@
-aida
+bee
 =====
 
-What is aida used for
+What is bee used for
 -------
 a build tool for front-end
 
@@ -9,4 +9,4 @@ Usage
 -------
 
 ```
-npm install aida -g
+npm install bee -g

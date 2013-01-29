@@ -1,9 +1,9 @@
 {
-    "name": "aida",
-    "version": "0.0.4",
+    "name": "bee",
+    "version": "0.0.5",
 	"description": "xml build tool write in Node",
-    "keywords": ["xml build tool", "front-end build tool", "aida"],
-    "main": "lib/aida.js",
+    "keywords": ["xml build tool", "front-end build tool", "bee"],
+    "main": "lib/bee.js",
     "engines": {
         "node" : ">=0.8.0"
     },
@@ -15,7 +15,7 @@
     }],
 	"bugs": {
         "email": "colorhook@gmail.com",
-        "url": "http://github.com/colorhook/aida/issues"
+        "url": "http://github.com/colorhook/bee/issues"
     },
     "dependencies": {
     	"fileutil": "~1.1.0",
@@ -41,15 +41,15 @@
     "scripts":{
         "test": "mocha --require should test test/tasks"
     },
-    "homepage": "https://github.com/colorhook/aida",
+    "homepage": "https://github.com/colorhook/bee",
     "repository" : {
         "type" : "git",
-        "url" : "git://github.com/colorhook/aida.git"
+        "url" : "git://github.com/colorhook/bee.git"
     },
 	"licenses": [
         {
             "type": "MIT",
-            "url": "http://github.com/colorhook/aida/blob/master/LICENSE"
+            "url": "http://github.com/colorhook/bee/blob/master/LICENSE"
         }
     ]
 }
