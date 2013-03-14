@@ -2,6 +2,10 @@ bee
 =====
 A build tool for front-end projects.
 
+Unit Test
+------
+[![travis build status](https://api.travis-ci.org/colorhook/bee.png)](https://www.travis-ci.org/colorhook/bee)
+
 Usage
 -------
 
