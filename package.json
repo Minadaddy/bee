@@ -19,7 +19,7 @@
     },
     "dependencies": {
     	"fileutil": "~1.1.0",
-        "async": "~0.1.0",
+        "async": "~0.2.6",
         "node-zip": "~0.0.2",
         "jshint": "~0.9.1",
         "csslint": "~0.9.8",
@@ -39,7 +39,7 @@
         "should": "~1.2.1"
     },
     "scripts":{
-        "test": "mocha --require should test test/tasks"
+        "test": "mocha --require should test test/tasks --timeout 10000 --globals hasCert --ignore-leaks"
     },
     "homepage": "https://github.com/colorhook/bee",
     "repository" : {

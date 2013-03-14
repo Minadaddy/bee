@@ -1,7 +1,7 @@
 {
     "name": "bee",
     "description": "bee is a cute frontend build tool",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "options": {
         "paths": ".",
         "exclude": "node_modules,test,example,conf,bin",
