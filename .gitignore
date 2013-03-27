@@ -1,3 +1,4 @@
 node_modules
 example
 .svn
+.DS_Store
