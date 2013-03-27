@@ -1,9 +1,12 @@
 {
     "name": "bee",
-    "version": "0.0.6",
-	"description": "xml build tool write in Node",
+    "version": "0.0.8",
+	  "description": "xml build tool write in Node",
     "keywords": ["xml build tool", "front-end build tool", "bee"],
     "main": "lib/bee.js",
+    "bin": {
+      "bee": "bin/bee"
+    },
     "engines": {
         "node" : ">=0.8.0"
     },
