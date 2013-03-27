@@ -31,6 +31,7 @@ if(!file){
 if(!fileutil.isFile(file)){
   return util.puts('Build failed: ' + file + ' does not exist!');
 }
+
 var project = bee.createProject(file, encoding);
 var reporter = new Reporter(project);
 project.execute(target);
