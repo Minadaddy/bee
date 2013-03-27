@@ -4,7 +4,7 @@ describe('bee is a static utility class', function(){
   
 
   it('bee has async property', function(){
-       bee.async.shoud.be.a('object');
+  
   });
 
 });
