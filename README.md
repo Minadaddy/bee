@@ -61,6 +61,80 @@ Tasks
 <available platform='win32' property='iswin32'/>
 ```
 
+#### basename
+
+```xml
+<basename file='${input}' property='file-basename'/>
+```
+
+#### concat
+
+```xml
+<concat file='a.js,b.js,c.js' destfile='combo.js'/>
+```
+
+#### condition
+
+```xml
+<copy file='a.js' to='my-new-dir'/>
+```
+
+#### copy
+
+```xml
+<copy file='a.js' to='my-new-dir'/>
+```
+
+#### datauri
+
+```xml
+<datauri file='a.js' to='my-new-dir'/>
+```
+
+#### delete
+
+```xml
+<delete file='myfile'/>
+```
+
+```xml
+<delete>
+  <fileset dir='.'>
+    <include glob='.svn'/>
+  </fileset>
+</delete>
+```
+
+#### dirname
+
+```xml
+<dirname file='${input}' property='file-dirname'/>
+```
+
+#### echo
+
+```xml
+<echo>the server is running by port ${port}.</echo>
+```
+
+#### exec
+
+```xml
+<exec>node myNodeApp.js</exec>
+```
+
+#### extname
+
+```xml
+<extname file='${input}' property='file-extname'/>
+```
+
+#### get
+
+```xml
+<get url=''/>
+```
+
 
 Bugs & Feedback
 ----------------
