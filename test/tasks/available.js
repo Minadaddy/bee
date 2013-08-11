@@ -2,6 +2,5 @@ var bee = process.env.JSCOV ? require('../../lib-cov/bee') : require('../../lib/
 
 describe('bee is a static utility class', function(){
   
-    
-
+  
 });
