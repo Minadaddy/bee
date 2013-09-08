@@ -5,5 +5,6 @@
 
   <target name="build">
     <echo>Hello, bee</echo>
+    <get url="https://raw.github.com/colorhook/bee/master/README.md" dest="README.md"/>
   </target>
 </project>

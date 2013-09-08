@@ -56,42 +56,63 @@ Tasks
 -------
 
 #### available
+判断某个文件或文件夹是否存在
 
 ```xml
-<available platform='win32' property='iswin32'/>
+<available target='file-or-dir' property='target-exist'/>
 ```
 
 #### basename
+获得某个文件的basename
 
 ```xml
 <basename file='${input}' property='file-basename'/>
 ```
 
 #### concat
+合并文件
 
 ```xml
 <concat file='a.js,b.js,c.js' destfile='combo.js'/>
 ```
 
 #### condition
+条件处理
 
 ```xml
-<copy file='a.js' to='my-new-dir'/>
+<condition property="result">
+  <os platform='win32'/>
+  <equals arg1='${arg1}' arg2='${arg2}'/>
+  <or>
+    <available file='myfile'/>
+  </or>
+</condition>
+
+<condition property='result' if='target-if' unless='target-unless'>
+  <os platform='win32'/>
+  <equals arg1='${arg1}' arg2='${arg2}'/>
+  <or>
+    <available file='myfile'/>
+  </or>
+</condition>
 ```
 
 #### copy
+复制某个文件或文件夹
 
 ```xml
 <copy file='a.js' to='my-new-dir'/>
 ```
 
 #### datauri
+datauri某个css或图片
 
 ```xml
-<datauri file='a.js' to='my-new-dir'/>
+<datauri file='a.css' to='my-new-dir'/>
 ```
 
 #### delete
+删除文件
 
 ```xml
 <delete file='myfile'/>
@@ -106,33 +127,38 @@ Tasks
 ```
 
 #### dirname
+获取某个文件的目录名
 
 ```xml
 <dirname file='${input}' property='file-dirname'/>
 ```
 
 #### echo
+打印字符串控制台
 
 ```xml
 <echo>the server is running by port ${port}.</echo>
 ```
 
 #### exec
+执行一段shell脚本
 
 ```xml
 <exec>node myNodeApp.js</exec>
 ```
 
 #### extname
+获取文件的扩展名
 
 ```xml
 <extname file='${input}' property='file-extname'/>
 ```
 
 #### get
+通过URL下载某个文件
 
 ```xml
-<get url=''/>
+<get url="https://raw.github.com/colorhook/bee/master/README.md" dest="README.md"/>
 ```
 
 
