@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test" description="bee example test">
+  <!--<npm name="fileutil"/>
+  <npm name="node-uploader"/>-->
+
+  <target name="build">
+    <echo>Hello, bee</echo>
+  </target>
+</project>
