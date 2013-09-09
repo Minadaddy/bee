@@ -15,6 +15,18 @@ npm install bee -g
 
 Summary
 -------
+一个`bee`工程可以包含多个task，一个task可以依赖多个其它task，当执行某个task，其依赖的task会现执行，其设计模式跟[`ant`](http://ant.apache.org/)类似。
+
+在`build.xml`所在文件夹下执行：
+
+```shell
+bee
+```
+
+或者执行某个文件中的某个特殊的任务：
+```
+bee publish -f ./build/publish.xml 
+```
 
 `build.xml`文件：
 
@@ -22,6 +34,7 @@ Summary
 <?xml version='1.0' encoding='utf-8'?>
 <project name='using bee to build a project example'  basedir='.'>
   <description>combo, minify</description>
+  <!-- 可以包含properties文件 -->
   <property file="version.properties"/>
   <property name="src" value="../src"/>
   <property name='build' value='../dist'/>
@@ -47,14 +60,15 @@ Summary
 </project>
 ```
 
-在build.xml文件夹下执行：
-
-```shell
-bee
-```
+Why XML?
+-------
+* XML是国际标准格式，具有严谨的格式规范，编写起来简单明了，学习门槛低。
+* 作为通用的数据格式，便于程序动态生成和建模，为可视化编辑提供支持。
+* 支持注释。
 
 Tasks
 -------
+`bee`内置了一些常用的命令，很多都是从[`ant`](http://ant.apache.org/manual/index.html)工具上获得灵感。除此之外，我们可以很方便地定义自己的命令来扩充功能。
 
 #### available
 判断某个文件或文件夹是否存在
