@@ -35,7 +35,8 @@ Summary
   </target>
   <!--combo-->
   <target name='combo'>
-    <concat dir='${src}/css' file='dialog.css,photoswipe.css,slider.css,app.css' destfile='${build}/css/combo.css'/>
+    <concat dir='${src}/css' file='dialog.css,photoswipe.css,slider.css,app.css'
+         destfile='${build}/css/combo.css'/>
   <target>
   <!--minify-->
   <target name='minify'>
@@ -101,7 +102,15 @@ Tasks
 复制某个文件或文件夹
 
 ```xml
-<copy file='a.js' to='my-new-dir'/>
+<copy file='src/myfile.js' tofile='build/myfile.js'/>
+<copy dir='src/lib' todir='dest'/>
+
+<copy todir='dest'>
+  <fileset src='src'>
+    <exclude value='.svn'/>
+  </fileset>
+</copy>
+
 ```
 
 #### datauri
@@ -116,6 +125,12 @@ datauri某个css或图片
 
 ```xml
 <delete file='myfile'/>
+
+<delete>
+  <fileset dir="src">
+    <exclude value='.svn'/>
+  </fileset>
+</delete>
 ```
 
 ```xml
@@ -137,7 +152,7 @@ datauri某个css或图片
 打印字符串控制台
 
 ```xml
-<echo>the server is running by port ${port}.</echo>
+<echo>the server is running on port ${port}.</echo>
 ```
 
 #### exec
@@ -161,6 +176,109 @@ datauri某个css或图片
 <get url="https://raw.github.com/colorhook/bee/master/README.md" dest="README.md"/>
 ```
 
+#### input
+与用户交互在控制台中输入
+
+```xml
+<input property='username' message='please type your username?' defaultvalue='default-user'/>
+<input property='password' password='true' message='please type your password?'/>
+<echo>username: ${username} password: ${password}</echo>
+```
+
+#### less
+将less文件编译成css文件
+
+```xml
+<less file='reset.less' destfile='reset.css' encoding='utf-8'/>
+```
+
+#### loadfile
+载入一个文件
+
+```xml
+<loadfile file='src/lib/myfile.js' encoding='utf-8'/>
+```
+
+#### minify
+压缩优化文件
+
+```xml
+<minify file='reset.css' destfile='reset.min.css'/>
+<minify file='myfie' destfile='myfile.min.js' type='js'/>
+<minify file='logo.png' destfile='logo.png'/>
+```
+
+#### mkdir
+创建文件夹
+
+```xml
+<mkdir dir='~/Documents/app/bee-test/example'/>
+<mkdir dir='${src}/lib'/>
+```
+
+#### move
+复制某个文件或文件夹
+
+```xml
+<move file='tmp/myfile.js' tofile='build/myfile.js'/>
+<move dir='tmp/lib' todir='dest'/>
+
+<move todir='dest'>
+  <fileset src='tmp'>
+    <exclude value='.svn'/>
+  </fileset>
+</move>
+```
+
+#### node
+用node环境执行脚本
+
+```xml
+<node>
+<![CDATA[
+console.log(process);
+]]>
+</node>
+```
+
+#### rename
+重命名某个文件或文件夹
+
+```xml
+<rename file='myfile.js' destfile='my-file.js'/>
+```
+
+#### replace
+替换文件中的某个标示
+
+```xml
+<!--替换combo.js中的@version@字符串-->
+<tstamp property='timestamp'/>
+<replace token='@version@' value='{timestamp}' file='combo.js'/>
+```
+
+#### sleep
+让程序sleep一段时间
+
+```xml
+<sleep value='1000'/>
+<sleep>1000</sleep>
+```
+
+#### touch
+创建一个文件
+
+```xml
+<touch file='readme.md'/>
+<touch file='readme.txt' permission='755'>text content</touch>
+```
+
+#### tstamp
+获取时间戳
+
+```xml
+<tstamp property='tstamp'/>
+```
 
 Bugs & Feedback
 ----------------
