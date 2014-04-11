@@ -33,7 +33,7 @@ bee publish -f ./build/publish.xml
 ```xml
 <?xml version='1.0' encoding='utf-8'?>
 <project name='using bee to build a project example'  basedir='.'>
-  <description>combo, minify</description>
+  <description>clean, create, combo</description>
   <!-- 可以包含properties文件 -->
   <property file="version.properties"/>
   <property name="src" value="../src"/>
