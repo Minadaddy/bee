@@ -239,7 +239,7 @@ Tasks
 ```xml
 <!--替换combo.js中的@version@字符串-->
 <tstamp property='timestamp'/>
-<replace token='@version@' value='{timestamp}' file='combo.js'/>
+<replace token='@version@' value='${timestamp}' file='combo.js'/>
 ```
 
 #### sleep
