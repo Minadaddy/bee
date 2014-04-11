@@ -1,0 +1,6 @@
+node_modules
+.svn
+.DS_Store
+example/node_modules
+test/
+bee.bat

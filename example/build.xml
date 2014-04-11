@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test" description="bee example test">
-  <!--<npm name="fileutil"/>-->
 
   <taskdef npm="bee-less"/>
   <taskdef npm="bee-min"/>
   <taskdef file="greeting"/>
 
-  <property name='argv' value='hehe~'/>
+  <property file="external.properties"/>
+
   <target name="build">
-    <echo>Hello, bee</echo>
+	
+	<echo>${website}</echo>
+    <echo>${message}</echo>
+	<echo>${key with spaces}</echo>
+
+	<echo>${this key was not defined, so output by original value}</echo>
+
 	<less src="example.less" dest="example.css"/>
 	<min file="example.css" destfile="example.min.css"/>
 	<datauri file="example.css" destfile="example.datauri.css"/>
+
 	<greeting>Write a custom task without publish to npm</greeting>
-    <!--<get url="https://raw.github.com/colorhook/bee/master/README.md" dest="README.md"/>-->
+    
+	<get url="https://raw.github.com/colorhook/bee/master/README.md" dest="README.md"/>
+
 	<node>
 	//console.log(require('./node-uploader'));
 	//console.log(bee);
 	</node>
+
   </target>
 </project>

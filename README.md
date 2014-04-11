@@ -361,7 +361,7 @@ module.exports = function(bee){
 
 在`greeting.js`相同目录新建一个文件`build.xml`，并写入如下内容：
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <project name="custom plugin" description="bee example">
 
