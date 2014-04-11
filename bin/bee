@@ -8,8 +8,7 @@ var bee = require('../lib/bee');
 var Reporter = require('../lib/Reporter');
 
 if(argv.v || argv.version){
-  var content = fileutil.read(path.join(__dirname, '../package.json'));
-  return util.puts(JSON.parse(content).version);
+  return util.puts(bee.version);
 }else if(argv.h || argv.help){ 
   var str = [
   ].join('\n');

@@ -51,12 +51,8 @@ bee publish -f ./build/publish.xml
     <concat dir='${src}/css' file='dialog.css,photoswipe.css,slider.css,app.css'
          destfile='${build}/css/combo.css'/>
   <target>
-  <!--minify-->
-  <target name='minify'>
-    <concat file='${src}/css/combo.css' destfile='${build}/css/combo.min.css'/>
-  <target>
   <!--default-->
-  <target name='build' depends='clean,create,combo,minify'/>
+  <target name='build' depends='clean,create,combo'/>
 </project>
 ```
 
@@ -82,6 +78,108 @@ Tasks
 
 ```xml
 <basename file='${input}' property='file-basename'/>
+```
+
+#### dirname
+获取某个文件的目录名
+
+```xml
+<dirname file='${input}' property='file-dirname'/>
+```
+
+#### extname
+获取文件的扩展名
+
+```xml
+<extname file='${input}' property='file-extname'/>
+```
+
+#### touch
+创建一个文件
+
+```xml
+<touch file='readme.md'/>
+<touch file='readme.txt' permission='755'>text content</touch>
+```
+
+#### copy
+复制某个文件或文件夹
+
+```xml
+<copy file='src/myfile.js' tofile='build/myfile.js'/>
+<copy dir='src/lib' todir='dest'/>
+
+<copy todir='dest'>
+  <fileset src='src'>
+    <exclude value='.svn'/>
+  </fileset>
+</copy>
+
+```
+
+#### delete
+删除文件
+
+```xml
+<delete file='myfile'/>
+
+<delete>
+  <fileset dir="src">
+    <exclude value='.svn'/>
+  </fileset>
+</delete>
+```
+
+```xml
+<delete>
+  <fileset dir='.'>
+    <include glob='.svn'/>
+  </fileset>
+</delete>
+```
+
+#### mkdir
+创建文件夹
+
+```xml
+<mkdir dir='~/Documents/app/bee-test/example'/>
+<mkdir dir='${src}/lib'/>
+```
+
+#### move
+复制某个文件或文件夹
+
+```xml
+<move file='tmp/myfile.js' tofile='build/myfile.js'/>
+<move dir='tmp/lib' todir='dest'/>
+
+<move todir='dest'>
+  <fileset src='tmp'>
+    <exclude value='.svn'/>
+  </fileset>
+</move>
+```
+
+
+#### rename
+重命名某个文件或文件夹
+
+```xml
+<rename file='myfile.js' destfile='my-file.js'/>
+```
+
+#### echo
+打印字符串控制台
+
+```xml
+<echo>the server is running on port ${port}.</echo>
+```
+
+#### exec
+执行一段shell脚本
+
+```xml
+<exec>node myNodeApp.js</exec>
 ```
 
 #### concat
@@ -112,77 +210,6 @@ Tasks
 </condition>
 ```
 
-#### copy
-复制某个文件或文件夹
-
-```xml
-<copy file='src/myfile.js' tofile='build/myfile.js'/>
-<copy dir='src/lib' todir='dest'/>
-
-<copy todir='dest'>
-  <fileset src='src'>
-    <exclude value='.svn'/>
-  </fileset>
-</copy>
-
-```
-
-#### datauri
-datauri某个css或图片
-
-```xml
-<datauri file='a.css' to='my-new-dir'/>
-```
-
-#### delete
-删除文件
-
-```xml
-<delete file='myfile'/>
-
-<delete>
-  <fileset dir="src">
-    <exclude value='.svn'/>
-  </fileset>
-</delete>
-```
-
-```xml
-<delete>
-  <fileset dir='.'>
-    <include glob='.svn'/>
-  </fileset>
-</delete>
-```
-
-#### dirname
-获取某个文件的目录名
-
-```xml
-<dirname file='${input}' property='file-dirname'/>
-```
-
-#### echo
-打印字符串控制台
-
-```xml
-<echo>the server is running on port ${port}.</echo>
-```
-
-#### exec
-执行一段shell脚本
-
-```xml
-<exec>node myNodeApp.js</exec>
-```
-
-#### extname
-获取文件的扩展名
-
-```xml
-<extname file='${input}' property='file-extname'/>
-```
-
 #### get
 通过URL下载某个文件
 
@@ -199,67 +226,11 @@ datauri某个css或图片
 <echo>username: ${username} password: ${password}</echo>
 ```
 
-#### less
-将less文件编译成css文件
-
-```xml
-<less file='reset.less' destfile='reset.css' encoding='utf-8'/>
-```
-
 #### loadfile
 载入一个文件
 
 ```xml
 <loadfile file='src/lib/myfile.js' encoding='utf-8'/>
-```
-
-#### minify
-压缩优化文件
-
-```xml
-<minify file='reset.css' destfile='reset.min.css'/>
-<minify file='myfie' destfile='myfile.min.js' type='js'/>
-<minify file='logo.png' destfile='logo.png'/>
-```
-
-#### mkdir
-创建文件夹
-
-```xml
-<mkdir dir='~/Documents/app/bee-test/example'/>
-<mkdir dir='${src}/lib'/>
-```
-
-#### move
-复制某个文件或文件夹
-
-```xml
-<move file='tmp/myfile.js' tofile='build/myfile.js'/>
-<move dir='tmp/lib' todir='dest'/>
-
-<move todir='dest'>
-  <fileset src='tmp'>
-    <exclude value='.svn'/>
-  </fileset>
-</move>
-```
-
-#### node
-用node环境执行脚本
-
-```xml
-<node>
-<![CDATA[
-console.log(process);
-]]>
-</node>
-```
-
-#### rename
-重命名某个文件或文件夹
-
-```xml
-<rename file='myfile.js' destfile='my-file.js'/>
 ```
 
 #### replace
@@ -279,20 +250,131 @@ console.log(process);
 <sleep>1000</sleep>
 ```
 
-#### touch
-创建一个文件
-
-```xml
-<touch file='readme.md'/>
-<touch file='readme.txt' permission='755'>text content</touch>
-```
-
 #### tstamp
 获取时间戳
 
 ```xml
 <tstamp property='tstamp'/>
 ```
+
+#### node
+用node环境执行脚本
+
+```xml
+<node>
+<![CDATA[
+console.log(process);
+]]>
+</node>
+```
+
+### 自定义插件
+
+除了有内置的task插件可以用之外，还可以用第三方插件或者自己定义插件。
+
+> 使用第三方插件：
+
+#### less
+[将less文件编译成css文件](http://github.com/colorhook/bee-less)
+
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<project name='using bee-less to build a project example'  basedir='.'>
+  <description>less</description>
+  <deskdef npm='bee-less'/>
+  <target name="build">
+    <less file='reset.less' destfile='reset.css' encoding='utf-8'/>
+  </target>
+</project>
+```
+
+#### datauri
+[datauri某个css或图片](http://github.com/colorhook/bee-mail)
+
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<project name='using bee-min to build a project example'  basedir='.'>
+  <description>datauri</description>
+  <deskdef npm='bee-min'/>
+  <target name="build">
+    <datauri file='a.css' to='my-new-dir'/>
+  </target>
+</project>
+```
+
+#### min
+[压缩优化js、css、图片文件](http://github.com/colorhook/bee-min)
+
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<project name='using bee-min to build a project example'  basedir='.'>
+  <description>min</description>
+  <deskdef npm='bee-min'/>
+  <target name="build">
+    <min file='reset.css' destfile='reset.min.css'/>
+    <min file='myfie' destfile='myfile.min.js' type='js'/>
+    <min file='logo.png' destfile='logo.png'/>
+  </target>
+</project>
+```
+
+#### mail
+[发送邮件](http://github.com/colorhook/bee-mail)
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<project name="bee mail project" description="bee mail test">
+
+  <property name="user" value="colorhook@gmail.com"/>
+  <property name="from" value="colorhook@gmail.com"/>
+  <property name="to" value="colorhook@gmail.com"/>
+
+  <target name="default">
+    <input setproperty='gmail.password' message='your gmail password? ' password='true'/>
+    <echo>${gmail.password}</echo>
+    <mail service='Gmail'>
+      <auth user='${user}' pass='${gmail.password}'/>
+      <message from="${from}" to="${to}">
+        <html>
+            <![CDATA[
+            <b>Hello</b>, <span style='color:red'>bee-mail</span>
+            ]]>
+        </html>
+      </message>
+    </mail>
+  </target>
+
+</project>
+```
+
+> 自定义内置插件。
+
+新建一个文件`greeting.js`，并写入如下代码：
+
+```js
+module.exports = function(bee){
+  bee.register('greeting', function(options){
+    console.log('greeting: ' + options.value);
+  });
+}
+```
+
+在`greeting.js`相同目录新建一个文件`build.xml`，并写入如下内容：
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<project name="custom plugin" description="bee example">
+
+  <taskdef file="greeting.js"/>
+
+  <property name='argv' value='Write a custom task without publish to npm'/>
+
+  <target name="build">
+    <greeting>${argv}</greeting>
+  </target>
+</project>
+```
+
 
 Bugs & Feedback
 ----------------
