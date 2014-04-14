@@ -199,6 +199,7 @@ Tasks
   header
   ========
   </header>
+
   <!-- 文件列表 -->
   <file>a.js</file>
   <file dir="optional-dir" name="b.js"/>
@@ -401,6 +402,77 @@ module.exports = function(bee){
   </target>
 </project>
 ```
+
+> childNodes
+
+如上`greeting.js`所示，`xml`定义的task定义会变成object形式的js对象：
+
+```xml
+<taskName prop1='a'>
+  <subprop prop2='b'>
+    <key1 prop3='c'>value1</key1>
+  </subprop>
+</taskName>
+```
+
+经过`./XMLParser.js`解析之后
+
+```js
+module.exports = function(bee){
+  bee.register('taskName', function(options){
+    /**
+    {
+      prop1: 'a',
+			value: '',
+      childNodes: [
+        {
+					name: 'subprop',
+					value: {
+						prop2: 'b',
+						value: '',
+						childNodes: [
+							{
+								name: 'key1',
+								value: {
+									prop3: 'c',
+									value: 'value1'
+								}
+							}
+						]
+					}
+				}
+      ]
+    }
+    **/
+		console.log(options);
+  });
+}
+```
+
+xml2json的内部实现:
+
+```javascript
+xml2json: function(xml) {
+	var obj = {
+		childNodes: []
+	};
+	xml.attributes("*").each(function(attr) {
+		obj[attr.localName()] = attr.toString();
+	});
+	if (xml.hasComplexContent()) {
+		xml.children().each(function(child) {
+			obj.childNodes.push({
+				name: child.localName(),
+				value: xu.xml2json(child)
+			})
+		});
+	} else {
+		if (!obj.value) {
+			obj.value = this.text(xml);
+		}
+	}
+	return obj;
+}
 
 
 Bugs & Feedback
