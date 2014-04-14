@@ -15,18 +15,24 @@
 
 	<echo>${this key was not defined, so output by original value}</echo>
 
-	<less src="example.less" dest="example.css"/>
-	<min file="example.css" destfile="example.min.css"/>
-	<datauri file="example.css" destfile="example.datauri.css"/>
-
-	<greeting>Write a custom task without publish to npm</greeting>
-    
-	<get url="https://raw.github.com/colorhook/bee/master/README.md" dest="README.md"/>
-
-	<node>
-	//console.log(require('./node-uploader'));
-	//console.log(bee);
-	</node>
+	<concat destfile='c.js'>
+	  <header trimleading="yes">
+	     ==========
+	  Header
+	  ==========
+	  </header>
+	  <file>a.js</file>
+	  <file dir="optional-dir" name="b.js"/>
+	  <filelist dir="some-dir">
+	   <file>m.js</file>
+	   <file name="n.js"/>
+	  </filelist>
+	  <footer>
+	       ===========
+		Footer
+		===========
+	  </footer>
+	</concat>
 
   </target>
 </project>

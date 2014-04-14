@@ -186,7 +186,34 @@ Tasks
 合并文件
 
 ```xml
-<concat file='a.js,b.js,c.js' destfile='combo.js'/>
+<concat files='a.js,b.js,c.js' destfile='combo.js'/>
+```
+
+更多的合并选项。
+
+```xml
+<concat>
+  <!-- 自定义header，并删除每行的行前空白字符 -->
+  <header trimleading="yes">
+  ========
+  header
+  ========
+  </header>
+  <!-- 文件列表 -->
+  <file>a.js</file>
+  <file dir="optional-dir" name="b.js"/>
+  <filelist dir="some-dir">
+    <file>m.js</file>
+    <file name="n.js"/>
+  </filelist>
+
+  <!-- 自定义footer -->
+  <footer>
+=========
+  footer
+=========
+  </footer>
+</concat>
 ```
 
 #### condition
@@ -283,7 +310,7 @@ console.log(process);
   <description>less</description>
   <deskdef npm='bee-less'/>
   <target name="build">
-    <less file='reset.less' destfile='reset.css' encoding='utf-8'/>
+    <less src='reset.less' dest='reset.css' encoding='utf-8'/>
   </target>
 </project>
 ```
@@ -297,7 +324,7 @@ console.log(process);
   <description>datauri</description>
   <deskdef npm='bee-min'/>
   <target name="build">
-    <datauri file='a.css' to='my-new-dir'/>
+    <datauri src='a.css' dest='my-new-dir/a.css'/>
   </target>
 </project>
 ```
@@ -311,7 +338,7 @@ console.log(process);
   <description>min</description>
   <deskdef npm='bee-min'/>
   <target name="build">
-    <min file='reset.css' destfile='reset.min.css'/>
+    <min src='reset.css' dest='reset.min.css'/>
     <min file='myfie' destfile='myfile.min.js' type='js'/>
     <min file='logo.png' destfile='logo.png'/>
   </target>
