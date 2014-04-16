@@ -1,38 +1,196 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project name="test" description="bee example test">
-
-  <taskdef npm="bee-less"/>
-  <taskdef npm="bee-min"/>
-  <taskdef file="greeting"/>
-
-  <property file="external.properties"/>
-
-  <target name="build">
+<?xml version='1.0' encoding='utf-8'?>
+<project basedir="." name='bee example'>
 	
-	<echo>${website}</echo>
-    <echo>${message}</echo>
-	<echo>${key with spaces}</echo>
+	<npm g="true">coffee-script</npm>
 
-	<echo>${this key was not defined, so output by original value}</echo>
+	<!-- custom plugin -->
+	<taskdef file="greeting.js"/>
 
-	<concat destfile='c.js'>
-	  <header trimleading="yes">
+	<!-- npm plugin -->
+	<taskdef npm="bee-less,bee-min"/>
+
+	<description>
+		This is an bee project
+	</description>
+
+	<property file="external.properties"/>
+	
+	<target name="init">
+	  <condition not="install-coffee">
+	    
+	  </condition>
+	</target>
+
+	<target name="install-coffee">
+	  <exec>npm install coffee-script -g</exec>
+	</target>
+
+	<target name="properties">
+	  <echo>${key with spaces}</echo>
+	  <echo>${tab}there is a tab before this p.</echo>
+	  <echo>${message}</echo>
+	</target>
+
+	<target name="dir">
+	  <basename file="/var/www/dir/abc.txt" property="basename" suffix=".txt"/>
+	  <echo>'${basename}' should be 'abc.txt'</echo>
+	  <dirname file="/var/www/dir/abc.txt" property="dirname"/>
+	  <echo>'${dirname}' should be '/var/www/dir'</echo>
+	  <extname file="/var/www/dir/abc.txt" property="extname"/>
+	  <echo>'${extname}' should be '.txt'</echo>
+	  <!--create file-->
+	  <mkdir dir="blank-dir"/>
+	  <touch file="touch.txt">some text</touch>
+	  <loadfile file="touch.txt" property="touch-file"/>
+	  <echo>touch file content:${touch-file}</echo>
+	  <available dir="blank-dir" property="blank-dir"/>
+	  <available file="touch.txt" property="touch-file"/>
+	  <echo>[blank dir] should be exist: ${blank-dir}</echo>
+	  <echo>touch.txt should be exist: ${touch-file}</echo>
+	  <!--delete file-->
+	  <delete target="blank-dir"/>
+	  <delete target="touch.txt"/>
+	  <available dir="blank-dir" property="blank-dir"/>
+	  <available file="touch.txt" property="touch-file"/>
+	  <echo>[blank dir] should not be exist: ${blank-dir}</echo>
+	  <echo>touch.txt should not be exist: ${touch-file}</echo>
+    </target>
+
+	<target name="condition">
+	  <condition property="cond" if="condition-yes">
+		 <os platform="win32"/>
+	  </condition>
+	  <echo>is win32 platform: ${cond}</echo>
+	</target>
+
+	<target name="condition-yes">
+		<echo>Windows platform</echo>
+	</target>
+	
+	<target name="concat">
+	  <concat destfile="combo.txt">
+	    <header trimleading="yes">
 	     ==========
 	  Header
 	  ==========
 	  </header>
-	  <file>a.js</file>
-	  <file dir="optional-dir" name="b.js"/>
-	  <filelist dir="some-dir">
-	   <file>m.js</file>
-	   <file name="n.js"/>
-	  </filelist>
-	  <footer>
+		<fileset dir="concat">
+			<include type="glob" value="*"/>
+		</fileset>
+		<footer>
 	       ===========
 		Footer
 		===========
-	  </footer>
-	</concat>
+	    </footer>
+	  </concat>
+	  <loadfile src="combo.txt" property="combo"/>
+	  <echo>${combo}</echo>
+	  <delete target="combo.txt"/>
+	</target>
 
-  </target>
+	<target name="replace">
+	  <copy src="replace/hello.txt" dest="replace/hello-copy.txt"/>
+	  <loadfile src="replace/hello.txt" property="replace-file"/>
+	  <echo>before replace: </echo>
+	  <echo>${replace-file}</echo>
+	  <replace file="replace/hello.txt">
+		<replacefilter token="@1@" value="#1#"/>
+		<replacefilter token="#1#" value="?1?"/>
+		<replacefilter token="\?1\?" value="!1!"/>
+		<replacefilter token="!1!" value="z1z"/>
+	  </replace>
+	  <loadfile src="replace/hello.txt" property="replace-file"/>
+	  <echo>after replace: </echo>
+	  <echo>${replace-file}</echo>
+	  <rename src="replace/hello-copy.txt" dest="replace/hello.txt"/>
+    </target>
+	
+	<target name="sleep">
+	  <tstamp property="current"/>
+	  <echo>start to sleep 1 second, now: ${current}</echo>
+	  <sleep>1000</sleep>
+	  <tstamp property="current"/>
+	  <echo>wake up, now: ${current}</echo>
+	</target>
+
+	<target name="node">
+	 <node>
+	 var os = require('os');
+	 console.log('os platform: ' + os.platform());
+	 console.log('typeof setImmediate: ', setImmediate);
+	 //global object: bee
+	 console.log('bee version: ' + bee.version);
+	 console.log('current bee project: [' + bee.project.name + '] description: ' + bee.project.description);
+	 </node>
+	</target>
+
+	<target name="exec">
+	  <echo>node version: node -v</echo>
+	  <exec stdout="true">node -v</exec>
+	  <echo>execute node file: node ${basedir}/exec.js</echo>
+	  <exec stdout="true" stderr="true">node ${basedir}/exec.js</exec>
+	</target>
+	
+	<target name="plugin">
+	  <echo>custom plugin: greeting.js</echo>
+	  <greeting>hoho~</greeting>
+	  <echo>npm plugin: less</echo>
+	  <less src="plugin/example.less" dest="plugin/example.css"/>
+	  <echo>npm plugin: datauri</echo>
+	  <datauri file="plugin/example.css" destfile="plugin/example.datauri.css"/>
+	  <echo>npm plugin: min css</echo>
+	  <min src="plugin/example.datauri.css" dest="plugin/example.min.css"/>
+	  <echo>exec: coffee -c -o ${basedir}/plugin ${basedir}/plugin/example.coffee</echo>
+	  <exec>coffee -c -o ${basedir}/plugin ${basedir}/plugin/example.coffee</exec>
+	  <echo>npm plugin: min js</echo>
+	  <min src="plugin/example.js" dest="plugin/example.min.js"/>
+	  <echo>npm plugin: min html</echo>
+	  <min src="plugin/example.html" dest="plugin/example.min.html"/>
+	  <echo>npm plugin: min png</echo>
+	  <min src="plugin/example.png" dest="plugin/example.min.png"/>
+	  
+	  <echo>==================CSS Transform: </echo>
+	  <loadfile src="plugin/example.css" property="css"/>
+	  <echo>${css}</echo>
+
+	  <echo>==================CSS DataURI: </echo>
+	  <loadfile src="plugin/example.datauri.css" property="css"/>
+	  <echo>${css}</echo>
+
+	  <echo>==================CSS min: </echo>
+	  <loadfile src="plugin/example.min.css" property="css"/>
+	  <echo>${css}</echo>
+		
+	  <echo>==================JS min: </echo>
+	  <loadfile src="plugin/example.min.js" property="js"/>
+	  <echo>${js}</echo>
+
+	  <echo>==================HTML min: </echo>
+	  <loadfile src="plugin/example.min.html" property="html"/>
+	  <echo>${html}</echo>
+		
+	  <echo>==================Image min: </echo>
+	  <node>
+	  var fs = require('fs');
+	  var getSize = function(file){
+	    return fs.statSync(file).size;
+	  }
+	  console.log('size: ' + getSize('plugin/example.png') + ' bytes, after min: ' + getSize('plugin/example.min.png') + ' bytes');
+	  </node>
+
+	  
+		
+	  <delete target="plugin/example.datauri.css"/>
+	  <delete target="plugin/example.min.css"/>
+	  <delete target="plugin/example.min.js"/>
+	  <delete target="plugin/example.min.html"/>
+	  <delete target="plugin/example.min.png"/>
+
+	</target>
+
+	<target name="build" depends="init,properties,dir,condition,concat,replace,sleep,node,exec,plugin">
+	  <echo>build completed</echo>
+	</target>
+
+
 </project>

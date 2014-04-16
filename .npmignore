@@ -2,5 +2,12 @@ node_modules
 .svn
 .DS_Store
 example/node_modules
+example/example.css
+example/example.datauri.css
+example/example.min.css
+example/example.js
+example/example.min.js
+example/example.min.html
+example/example.min.png
 test/
 bee.bat
