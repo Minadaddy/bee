@@ -1,8 +1,8 @@
 bee
 =====
-A build tool for front-end projects.
+一个前端build工具
 
-Unit Test
+Unit Test (the service down?)
 ------
 [![travis build status](https://api.travis-ci.org/colorhook/bee.png)](https://www.travis-ci.org/colorhook/bee)
 
@@ -61,6 +61,43 @@ Why XML?
 * XML是国际标准格式，具有严谨的格式规范，编写起来简单明了，学习门槛低。
 * 作为通用的数据格式，便于程序动态生成和建模，为可视化编辑提供支持。
 * 支持注释。
+
+
+------
+Config
+
+`bee` project有`name`, `description`, `level`等属性
+
+* `name`				项目名次
+* `description` 项目描述
+* `level`				日志level，可以是`log`, `info`, `debug`, `warn`, `error`。默认是`debug`，即项目运行过程中不会输出`log`和`info`信息到控制台。
+
+-------
+npm
+
+在build过程中，可能需要自定义脚本，这些脚本或许依赖某个`npm`包。基于这个需求场景，`bee`支持在build启动时根据配置来自动下载`npm`包。
+
+```xml
+<npm>node-uploader,node-uuid</npm>
+```
+
+-------
+taskdef
+
+在build过程中，很有可能依赖第三方npm插件，所以使用`taskdef`能很方便的加载使用到的插件，插件的下载和装配过程是`bee`自动完成的。
+
+```xml
+<taskdef npm="bee-less,bee-min@0.3.0"/>
+```
+
+当然也可以使用`taskdef`自定义插件
+
+```xml
+<taskdef>path/custom.js</taskdef>
+```
+
+详细的使用方法，可以参考后面的自定义插件这一段。
+
 
 Tasks
 -------
@@ -258,16 +295,29 @@ Tasks
 载入一个文件
 
 ```xml
-<loadfile file='src/lib/myfile.js' encoding='utf-8'/>
+<loadfile file='src/lib/myfile.js' encoding='utf-8' property="content"/>
+<echo>${content}</echo>
+<!--write to file-->
+<touch file="build/lib/myfile.js'>${content}</touch>
 ```
 
 #### replace
-替换文件中的某个标示
+替换文件中的某个标识
 
 ```xml
 <!--替换combo.js中的@version@字符串-->
 <tstamp property='timestamp'/>
 <replace token='@version@' value='${timestamp}' file='combo.js'/>
+```
+多值替换。需要注意的是，对于替换`?`这类正则语义字符需要在token定义中加入`\`进行转义：
+
+```xml
+<replace file="replace/hello.txt">
+	<replacefilter token="@1@" value="#1#"/>
+	<replacefilter token="#1#" value="?1?"/>
+	<replacefilter token="\?1\?" value="!1!"/>
+	<replacefilter token="!1!" value="z1z"/>
+</replace>
 ```
 
 #### sleep
@@ -473,6 +523,7 @@ xml2json: function(xml) {
 	}
 	return obj;
 }
+```
 
 
 Bugs & Feedback

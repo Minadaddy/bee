@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project basedir="." name='bee example'>
+<project name='bee example' basedir="."  level='log'>
 	
-	<npm g="true">coffee-script</npm>
+	<npm g="true">node-sass</npm>
 
 	<!-- custom plugin -->
 	<taskdef file="greeting.js"/>
@@ -14,16 +14,6 @@
 	</description>
 
 	<property file="external.properties"/>
-	
-	<target name="init">
-	  <condition not="install-coffee">
-	    
-	  </condition>
-	</target>
-
-	<target name="install-coffee">
-	  <exec>npm install coffee-script -g</exec>
-	</target>
 
 	<target name="properties">
 	  <echo>${key with spaces}</echo>
@@ -117,9 +107,14 @@
 	 <node>
 	 var os = require('os');
 	 console.log('os platform: ' + os.platform());
-	 console.log('typeof setImmediate: ', setImmediate);
+	 console.log('setImmediate: ', setImmediate);
 	 //global object: bee
 	 console.log('bee version: ' + bee.version);
+	 console.log('bee level: ' + bee.level);
+	 bee.log("XXXXXXXXXXXXXXXXXXXX log");
+	 bee.info("XXXXXXXXXXXXXXXXXXXX info");
+	 bee.debug("XXXXXXXXXXXXXXXXXXXX debug");
+	 bee.warn("XXXXXXXXXXXXXXXXXXXX warn");
 	 console.log('current bee project: [' + bee.project.name + '] description: ' + bee.project.description);
 	 </node>
 	</target>
@@ -127,8 +122,8 @@
 	<target name="exec">
 	  <echo>node version: node -v</echo>
 	  <exec stdout="true">node -v</exec>
-	  <echo>execute node file: node ${basedir}/exec.js</echo>
-	  <exec stdout="true" stderr="true">node ${basedir}/exec.js</exec>
+	  <echo>execute node file: node exec.js</echo>
+	  <exec stdout="true" stderr="true">node exec.js</exec>
 	</target>
 	
 	<target name="plugin">
@@ -140,8 +135,8 @@
 	  <datauri file="plugin/example.css" destfile="plugin/example.datauri.css"/>
 	  <echo>npm plugin: min css</echo>
 	  <min src="plugin/example.datauri.css" dest="plugin/example.min.css"/>
-	  <echo>exec: coffee -c -o ${basedir}/plugin ${basedir}/plugin/example.coffee</echo>
-	  <exec>coffee -c -o ${basedir}/plugin ${basedir}/plugin/example.coffee</exec>
+	  <echo>exec: coffee -c -o plugin plugin/example.coffee</echo>
+	  <exec>coffee -c -o plugin plugin/example.coffee</exec>
 	  <echo>npm plugin: min js</echo>
 	  <min src="plugin/example.js" dest="plugin/example.min.js"/>
 	  <echo>npm plugin: min html</echo>
@@ -183,12 +178,14 @@
 	  <delete target="plugin/example.datauri.css"/>
 	  <delete target="plugin/example.min.css"/>
 	  <delete target="plugin/example.min.js"/>
+	  <delete target="plugin/example.css"/>
+	  <delete target="plugin/example.js"/>
 	  <delete target="plugin/example.min.html"/>
 	  <delete target="plugin/example.min.png"/>
 
 	</target>
 
-	<target name="build" depends="init,properties,dir,condition,concat,replace,sleep,node,exec,plugin">
+	<target name="build" depends="properties,dir,condition,concat,replace,sleep,node,exec,plugin">
 	  <echo>build completed</echo>
 	</target>
 
