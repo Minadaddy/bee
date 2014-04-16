@@ -313,9 +313,11 @@ Tasks
 ```xml
 <!--替换combo.js中的@version@字符串-->
 <tstamp property='timestamp'/>
-<replace token='@version@' value='${timestamp}' file='combo.js'/>
+<replace token='@time@' value='${timestamp}' file='combo.js'/>
 ```
+
 多值替换。需要注意的是，对于替换`?`这类正则语义字符需要在token定义中加入`\`进行转义：
+
 
 ```xml
 <replace file="replace/hello.txt">
@@ -338,16 +340,18 @@ Tasks
 获取时间戳
 
 ```xml
-<tstamp property='tstamp'/>
+<tstamp property='tstamp' pattern='yyyy-MM-dd HH:mm:ss'/>
 ```
 
 #### node
-用node环境执行脚本
+用node环境执行脚本，在该环境下，存在一个名为`bee`的全局变量。
 
 ```xml
 <node>
 <![CDATA[
-console.log(process);
+console.log(require('os').platform);
+//当前运行的project
+console.log(bee.project);
 ]]>
 </node>
 ```
