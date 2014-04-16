@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <project name='bee example' basedir="."  level='log'>
 	
-	<npm g="true">node-sass</npm>
+	<npm g="true">coffee-script</npm>
 
 	<!-- custom plugin -->
 	<taskdef file="greeting.js"/>

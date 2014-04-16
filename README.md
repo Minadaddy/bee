@@ -63,8 +63,8 @@ Why XML?
 * 支持注释。
 
 
-------
 Config
+------
 
 `bee` project有`name`, `description`, `level`等属性
 
@@ -72,8 +72,8 @@ Config
 * `description` 项目描述
 * `level`				日志level，可以是`log`, `info`, `debug`, `warn`, `error`。默认是`debug`，即项目运行过程中不会输出`log`和`info`信息到控制台。
 
--------
-npm
+### npm
+
 
 在build过程中，可能需要自定义脚本，这些脚本或许依赖某个`npm`包。基于这个需求场景，`bee`支持在build启动时根据配置来自动下载`npm`包。
 
@@ -81,8 +81,14 @@ npm
 <npm>node-uploader,node-uuid</npm>
 ```
 
--------
-taskdef
+安装到全局：
+
+```xml
+<npm>coffee-script</npm>
+```
+
+### taskdef
+
 
 在build过程中，很有可能依赖第三方npm插件，所以使用`taskdef`能很方便的加载使用到的插件，插件的下载和装配过程是`bee`自动完成的。
 
