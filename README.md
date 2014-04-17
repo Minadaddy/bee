@@ -70,6 +70,7 @@ Config
 
 * `name`				项目名次
 * `description` 项目描述
+* `basedir`			项目的根目录
 * `level`				日志level，可以是`log`, `info`, `debug`, `warn`, `error`。默认是`debug`，即项目运行过程中不会输出`log`和`info`信息到控制台。
 
 ### npm
@@ -84,7 +85,7 @@ Config
 安装到全局：
 
 ```xml
-<npm>coffee-script</npm>
+<npm g="true">coffee-script</npm>
 ```
 
 ### taskdef
