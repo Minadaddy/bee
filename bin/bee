@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-var util = require('util');
 var path = require('path');
 var argv = require('optimist').argv;
 var fileutil = require('fileutil');
@@ -8,11 +7,11 @@ var bee = require('../lib/bee');
 var Reporter = require('../lib/Reporter');
 
 if(argv.v || argv.version){
-  return util.puts(bee.version);
+  return console.log(bee.version);
 }else if(argv.h || argv.help){ 
   var str = [
   ].join('\n');
-  return util.puts(str);
+  return console.log(str);
 }
 
 var target = argv._[0] || argv.t || argv.target;
@@ -28,7 +27,7 @@ if(!file){
 }
 
 if(!fileutil.isFile(file)){
-  return util.puts('Build failed: ' + file + ' does not exist!');
+  return console.log('Build failed: ' + file + ' does not exist!');
 }
 
 var project = bee.createProject(file, encoding);

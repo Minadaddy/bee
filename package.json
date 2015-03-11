@@ -1,7 +1,7 @@
 {
     "name": "bee",
-    "version": "0.1.0",
-	"description": "xml build tool write in Node",
+    "version": "0.1.1",
+	 "description": "xml build tool write in Node",
     "keywords": ["xml build tool", "front-end build tool", "bee"],
     "main": "lib/bee.js",
     "bin": {
@@ -10,13 +10,13 @@
     "engines": {
         "node" : ">=0.8.0"
     },
-	"author": "colorhook <colorhook@gmail.com>",
-	"maintainers": [{
+	 "author": "colorhook <colorhook@gmail.com>",
+	 "maintainers": [{
       "name": "colorhook",
       "email": "colorhook@gmail.com",
       "url": "http://colorhook.com"
     }],
-	"bugs": {
+	 "bugs": {
         "email": "colorhook@gmail.com",
         "url": "http://github.com/colorhook/bee/issues"
     },
